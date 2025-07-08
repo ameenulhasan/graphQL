@@ -1,0 +1,210 @@
+input UserDto {
+    id: ID
+    name: String
+    email: String
+    gender: String
+    address: String
+    phoneNumber: String
+    password: String
+
+}
+scalar Upload
+
+input BookDto {
+    id: ID
+    title: String
+    author: String
+    price: String
+}
+
+type Book {
+    id: ID
+    title: String
+    author: String
+    price: String
+    uploadFile: String
+}
+
+input OrderDto {
+    id: ID
+    userId: ID
+    bookId: ID
+    quantity: Int
+    totalPrice: Int
+}
+type OrderIdDto {
+    orderId: ID
+    quantity: Int
+    totalPrice: Int
+    userName: String
+    bookName: String
+    author: String
+    price: String
+}
+type ResponseOrder {
+    data: OrderIdDto
+}
+type Order {
+    id: ID
+    quantity: Int
+    totalPrice: Int
+    user: User
+    book: Book
+}
+
+type Role{
+    id: ID
+    roleName: String
+}
+
+type User {
+    id: ID
+    name: String
+    email: String
+    gender: String
+    address: String
+    phoneNumber: String
+    password: String
+    isActive: Boolean
+    deletedFlag: Boolean
+    createdAt: String
+    createdBy: Int
+    modifiedAt: String
+    modifiedBy: Int
+}
+
+type UserTokenDto {
+    id: ID
+    email: String
+    userName: String
+    iat: Float
+    exp: Float
+    sub: String
+    role: String
+}
+
+input RoleDto{
+    id: ID
+    roleName: String
+}
+input LoginDto {
+    email: String
+    password: String
+}
+
+input ChatMessageInput {
+    sender: Int
+    receiver: Int
+    content: String
+}
+type ResponseChatMessage {
+    data: [ChatMessageDto]
+}
+
+type ChatMessageDto {
+    id: ID
+    sender: Int
+    receiver: Int
+    content: String
+    timestamp: String
+}
+
+input EditMessageDto {
+    messageId: ID
+    content: String
+}
+
+type BookDetailsDto {
+    title: String
+    author: String
+    originalPrice: String
+}
+
+type UserOrderStatsDto {
+    userId: ID
+    userName: String
+    totalBooks: Int
+    totalSpent: Int
+    books: [BookDetailsDto]
+}
+type BookIdDto {
+    id: ID
+    title: String
+    author: String
+    price: Int
+}
+type ResponseUser {
+    data: [UserListDto]
+}
+
+type UserListDto {
+    id: ID
+    name: String
+    orders: [OrderListDto]
+}
+
+type OrderListDto{
+    id: ID
+    quantity: Int
+    totalPrice: Int
+    book: Book
+    bookIdDto: BookIdDto
+}
+
+type LoginResponse {
+    accessToken: String
+    refreshToken: String
+    role: String
+}
+
+type PageResponse {
+    hasNext: Boolean
+    hasPrevious: Boolean
+    totalRecordCount: Int
+    totalPageCount: Int
+    data: [SuccessData]
+}
+
+union SuccessData = UserListDto | Order | Book | ChatMessageDto | UserOrderStatsDto | OrderListDto | BookIdDto
+
+type SuccessResponse {
+    statusCode: Int
+    statusMessage: String
+    data: SuccessData
+}
+
+type Query {
+    getUse: [User]
+    getByIdUser(id: Int): SuccessResponse
+    getBooks: [Book]
+    getBookById(bookId: ID): Book
+    getAllOrders: [Order]
+    validateToken(token: String): UserTokenDto
+    orderDownload(format: String, date: String, month: String): String
+    getChatMessages(senderId: Int, receiverId: Int): ResponseChatMessage
+    getOrderById(orderId: ID): ResponseOrder
+    getUserOrderStats(userId: ID): SuccessResponse
+    getAllUsersWithOrders: ResponseUser
+    userPagesSearch(search: String, pageNo: Int, pageSize: Int): PageResponse
+    getUsers(search: String, pageNo: Int, pageSize: Int): SuccessResponse
+
+}
+
+type Mutation {
+    createUser(userDto: UserDto): User
+    createBook(bookDto: BookDto): SuccessResponse
+    uploadFileBook(bookDto: BookDto, uploadFile: Upload): SuccessResponse
+    saveOrder(orderDto: OrderDto): SuccessResponse
+    saveOrUpdate(roleDto: RoleDto): SuccessResponse
+    login(loginDto: LoginDto): LoginResponse
+    refreshToken(request: String): LoginResponse
+    saveMessage(chatMessageDto: ChatMessageInput): ChatMessageDto
+    editMessage(editMessageDto: EditMessageDto): SuccessResponse
+    sendMessage(chatMessageDto: ChatMessageInput): ChatMessageDto
+    deleteBook(bookId: ID): SuccessResponse
+
+}
+
+type Subscription {
+    messageReceived: ChatMessageDto
+}

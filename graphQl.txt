@@ -1,0 +1,348 @@
+token generated
+mutation { 
+    login(loginDto: {
+        email: "ameen26@gmail.com",
+        password: "1234"
+    } )
+        {
+            accessToken 
+            refreshToken 
+            role
+    }
+}
+
+refresh token
+mutation {
+    refreshToken(request: ""
+     )
+        {
+            accessToken
+            refreshToken
+    }
+}
+
+query token generated
+{
+    "query": "mutation { login(loginDto: {email: \"ameen26@gmail.com\", password: \"1234\"} ) { accessToken refreshToken role } }"
+}
+
+query create order
+{
+    "query": "mutation { saveOrder(orderDto: {userId: 2, bookId: 3, quantity: 3 } ) { quantity totalPrice user{name} book{title author price} } }"
+}
+
+create order
+mutation { 
+    saveOrder(orderDto: { 
+        id: 12, 
+        userId: 2,
+        bookId: 3,
+        quantity: 2 
+        }) { 
+            quantity 
+            totalPrice 
+            user{
+                name 
+            } 
+            book{
+                title 
+                author 
+                price
+            } 
+        } 
+    }
+
+getBooksTittle
+{
+  "query": "query { getBooks { title author price } }"
+}
+
+operations{
+  "query": "mutation($bookDto: BookDto, $uploadFile: Upload!) { uploadFileBook(bookDto: $bookDto, uploadFile: $uploadFile) { statusMessage data } }",
+  "variables": {
+    "bookDto": {
+      "id": 1
+    },
+    "uploadFile": null
+  }
+}
+
+map{
+    "1": [
+        "variables.uploadFile"
+    ]
+}
+
+1    file upload
+query {
+  orderDownload(format: "pdf", date: "2025-04-08", month: "4") 
+}
+
+{
+  "query": "mutation($chatMessageDto: ChatMessageInput!) { saveMessage(chatMessageDto: $chatMessageDto) { id sender receiver content timestamp } }",
+  "variables": {
+    "chatMessageDto": {
+      "sender": 2,
+      "receiver": 1,
+      "content": "how is going?"
+    }
+  }
+}
+
+mutation {
+  saveMessage(chatMessageDto: {
+    sender: 2,
+    receiver: 1,
+    content: "how is going?"
+  }) {
+    id
+    sender
+    receiver
+    content
+    timestamp
+  }
+}
+
+query {
+  getChatMessages(senderId: 2, receiverId: 1) {
+    data {
+      sender
+      receiver
+      content
+      timestamp
+    }
+  }
+}
+
+mutation {
+  editMessage(editMessageDto: {
+    messageId: 5
+    content: "Message edited"
+  }) {
+    statusCode
+    statusMessage
+    data {
+      ... on ChatMessageDto {
+        id
+        sender
+        receiver
+        content
+        timestamp
+      }
+    }
+  }
+}
+
+delete
+mutation {
+  deleteBook(bookId: 1) {
+    statusCode
+    statusMessage
+  }
+}
+
+Error Validation, INTERNAL_ERROR & Field level error
+{
+  "query": "query { getOrderById(orderId: 1) { id quantity totalPrice userName bookName author price } }"
+}
+
+input validation
+{
+  "query": "query { getOrderById(orderId: 8) { id quantity totalPrice userName bookName author price } }"
+}
+
+input validation 
+Error Handling
+mutation {
+  saveOrder(orderDto: {
+    id: Null,
+    userId: 4,
+    bookId: 5,
+    quantity: 1
+  }) {
+    statusCode
+    statusMessage
+    data {
+      ... on Order {
+        id
+        quantity
+        totalPrice
+        user {
+          name
+        }
+        book {
+          title
+          author
+          price
+        }
+      }
+    }
+  }
+}
+
+query {
+  getOrderById(orderId: 5) {
+    data {
+      orderId
+      quantity
+      totalPrice
+      userName
+      bookName
+      author
+      price
+    }
+  }
+}
+
+aggregated data(count , sum)
+query {
+  getUserOrderStats(userId: 1) {
+    statusCode
+    statusMessage
+    data {
+      ... on UserOrderStatsDto {
+        userId
+        userName
+        totalBooks
+        totalSpent
+        books {
+          title
+          originalPrice
+        }
+      }
+    }
+  }
+}
+
+batch  query
+query {
+  getOrderById(orderId: 11) {
+    data {
+      orderId
+      quantity
+      totalPrice
+      userName
+      bookName
+      author
+      price
+    }
+  }
+}
+
+n+1 optimization needs dataLoader
+query {
+  getAllUsersWithOrders {
+    data {
+      id
+      name
+      orders {
+        id
+        quantity
+        totalPrice
+        book {
+          id
+          title
+          author
+          price
+        }
+      }
+    }
+  }
+}
+
+complex nested relationship
+query {
+  getByIdUser(id: 6) {
+    statusCode
+    statusMessage
+    data {
+      ... on UserListDto {
+        name
+        orders {
+          quantity
+          totalPrice
+          book {
+            title
+            author
+            price
+          }
+        }
+      }
+    }
+  }
+}
+
+web socket
+{
+  "query": "mutation($dto: ChatMessageInput!) { sendMessage(chatMessageDto: $dto) { id sender receiver content timestamp } }",
+  "variables": {
+    "dto": {
+      "sender": 1,
+      "receiver": 2,
+      "content": "Hello from Ameen!"
+    }
+  }
+}
+
+get senderid
+query {
+  getChatMessages(senderId: 1, receiverId: 2) {
+    data {
+      sender
+      receiver
+      content
+    }
+  }
+}
+
+PagesSearch
+query {
+  userPagesSearch(search: "s", pageNo: 1, pageSize: 10) {
+    data {
+      ... on UserListDto {
+        name
+        orders {
+          quantity
+          totalPrice
+          bookIdDto {
+            title
+            price
+          }
+        }
+      }
+    }
+    totalRecordCount
+    totalPageCount
+    hasNext
+    hasPrevious
+  }
+}
+
+Tooling & Developer Experience
+
+Altair test tool
+Set Headers
+Authorization
+Bearer (token)
+
+Graphiql Ui Test
+Headers
+{
+  "Authorization": "Bearer token send pannanum"
+}
+
+Graphql Playground
+SandBox
+Url securityConfig set Now on frontend url
+https://studio.apollographql.com
+Headers
+{
+  "Authorization": "Bearer token send"
+}
+
+Hygraph's GraphQL Playground
+https://hygraph.com
+Headers
+{
+  "Authorization": "Bearer token send"
+}
