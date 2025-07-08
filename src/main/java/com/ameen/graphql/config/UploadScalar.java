@@ -7,10 +7,12 @@ import graphql.schema.CoercingSerializeException;
 import org.springframework.web.multipart.MultipartFile;
 
 public class UploadScalar {
+
     public static final GraphQLScalarType Upload = GraphQLScalarType.newScalar()
             .name("Upload")
             .description("A file part in a multipart request")
             .coercing(new Coercing<MultipartFile, Void>() {
+
                 @Override
                 public Void serialize(Object dataFetcherResult) throws CoercingSerializeException {
                     throw new CoercingSerializeException("Upload is input-only");

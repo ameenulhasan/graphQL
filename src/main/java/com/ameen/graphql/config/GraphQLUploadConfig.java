@@ -17,4 +17,5 @@ public class GraphQLUploadConfig {
     public RuntimeWiringConfigurer wiringConfigurers() {
         return wiringBuilder -> wiringBuilder.scalar(ExtendedScalars.Url);
     }
+
 }
