@@ -36,17 +36,18 @@ http://localhost:8080/graphql
 
 ---
 
-## 🔍 Example Queries
+## 🔍 Example Queries & File
 
 graphQl.txt 
 
-### ✅ Get all users
 
-```graphql
-query {
-  allUsers {
-    id
-    name
-    email
-  }
-}
+📌 Notes
+Schemas are defined under src/main/resources/graphql/
+
+Resolver classes implement:
+  * GraphQLQueryResolver
+  * GraphQLMutationResolver
+
+📫 Contact
+
+Maintained by Ameenul Hasan – feel free to reach out for collaboration or feedback.
