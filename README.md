@@ -9,7 +9,8 @@ This project demonstrates the implementation of **GraphQL** with Spring Boot, en
 - `Spring Boot`
 - `graphql-java`
 - `graphql-kickstart`
-- `GraphQLQueryResolver`, `GraphQLMutationResolver`
+- `GraphQLQueryResolver`
+- `GraphQLMutationResolver`
 - `Lombok`, `JPA`, `MySQL`
 
 ---
@@ -20,7 +21,7 @@ This project demonstrates the implementation of **GraphQL** with Spring Boot, en
 - Modify data using `mutation` resolvers
 - Supports deep/nested fetching
 - JSON-based flexible API calls
-- Works with tools like **GraphQL Playground**, **Altair**, or **Insomnia**
+- Works with tools like **Postman**, **Altair**, **GraphQL UI Playground**, **Apollo GraphQL Playground**, or **Hygraph's Playground**
 
 ---
 
@@ -42,7 +43,10 @@ graphQl.txt
 
 
 📌 Notes
+
 Schemas are defined under src/main/resources/graphql/
+
+        -schema.graphqls
 
 Resolver classes implement:
   * GraphQLQueryResolver
@@ -51,3 +55,5 @@ Resolver classes implement:
 📫 Contact
 
 Maintained by Ameenul Hasan – feel free to reach out for collaboration or feedback.
+
+---
